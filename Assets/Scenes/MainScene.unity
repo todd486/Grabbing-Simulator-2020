@@ -170,6 +170,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91712d6bdf48c524c8fc9c13bd5953ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  select:
+    actionPath: /actions/default/in/InteractUI
+    needsReinit: 0
+  drop:
+    actionPath: /actions/default/in/GrabGrip
+    needsReinit: 0
+  source: 2
   defaultMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   highlightMaterial: {fileID: 2100000, guid: b1e683e8bf011f94ab3c2f6d097aa87c, type: 2}
 --- !u!1 &577082939
@@ -183,6 +190,7 @@ GameObject:
   - component: {fileID: 577082943}
   - component: {fileID: 577082942}
   - component: {fileID: 577082941}
+  - component: {fileID: 577082951}
   - component: {fileID: 577082940}
   - component: {fileID: 577082944}
   - component: {fileID: 577082948}
@@ -191,7 +199,6 @@ GameObject:
   - component: {fileID: 577082945}
   - component: {fileID: 577082949}
   - component: {fileID: 577082950}
-  - component: {fileID: 577082951}
   m_Layer: 0
   m_Name: Interactable Cube
   m_TagString: RangeGrabbable
@@ -646,6 +653,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+--- !u!1 &814731224 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 144230, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+  m_PrefabInstance: {fileID: 814731223}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &814731225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814731224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91712d6bdf48c524c8fc9c13bd5953ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  select:
+    actionPath: /actions/default/in/InteractUI
+    needsReinit: 0
+  drop:
+    actionPath: /actions/default/in/GrabGrip
+    needsReinit: 0
+  source: 1
+  defaultMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  highlightMaterial: {fileID: 2100000, guid: b1e683e8bf011f94ab3c2f6d097aa87c, type: 2}
 --- !u!1 &1069539660
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,6 +858,7 @@ GameObject:
   - component: {fileID: 1575740744}
   - component: {fileID: 1575740743}
   - component: {fileID: 1575740742}
+  - component: {fileID: 1575740745}
   - component: {fileID: 1575740741}
   - component: {fileID: 1575740740}
   - component: {fileID: 1575740739}
@@ -833,7 +867,6 @@ GameObject:
   - component: {fileID: 1575740736}
   - component: {fileID: 1575740735}
   - component: {fileID: 1575740734}
-  - component: {fileID: 1575740745}
   m_Layer: 0
   m_Name: Interactable Cube (1)
   m_TagString: RangeGrabbable
