@@ -33,12 +33,8 @@ public class AntigravGrab : MonoBehaviour {
             }
         }
 
-        if (Physics.Raycast(this.gameObject.transform.GetChild(0).position, 
-                            transform.TransformDirection(new Vector3(0, -1f, 1)), out hit, Mathf.Infinity)) {
-
-            Debug.DrawRay(this.gameObject.transform.GetChild(0).position, 
-                          transform.TransformDirection(new Vector3(0, -1f, 1)) * hit.distance, 
-                          Color.yellow);
+        if (Physics.Raycast(this.gameObject.transform.GetChild(0).position, transform.TransformDirection(new Vector3(0, -1f, 1)), out hit, Mathf.Infinity)) {
+            Debug.DrawRay(this.gameObject.transform.GetChild(0).position, transform.TransformDirection(new Vector3(0, -1f, 1)) * hit.distance, Color.yellow);
 
             hitObject = hit.collider.gameObject;
 
