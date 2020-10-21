@@ -54,6 +54,10 @@
       "type": "vibration"
     },
     {
+      "name": "/actions/default/out/noHaptic",
+      "type": "vibration"
+    },
+    {
       "name": "/actions/platformer/in/Move",
       "type": "vector2"
     },
