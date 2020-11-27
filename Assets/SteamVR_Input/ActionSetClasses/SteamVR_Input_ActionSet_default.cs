@@ -105,6 +105,22 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Boolean AntigravRangeGrab
+        {
+            get
+            {
+                return SteamVR_Actions.default_AntigravRangeGrab;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean AlyxRangeGrab
+        {
+            get
+            {
+                return SteamVR_Actions.default_AlyxRangeGrab;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get

@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.grabbingsimulator2020.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\Filip\\unity dev\\Grabbing-Simulator-2020\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "D:\\Dokument\\GitHub\\Grabbing-Simulator-2020\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "Grabbing Simulator 2020 [Testing]"
