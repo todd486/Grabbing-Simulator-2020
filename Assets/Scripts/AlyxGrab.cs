@@ -15,9 +15,6 @@ public class AlyxGrab : MonoBehaviour {
     private GameObject hitObject;
     private Material lastHighlightedMaterial;
 
-    //The apex of the arc which the object is moving towards
-    private float handHeight;
-
     private void OnEnable() {
         if (hand == null) { hand = this.GetComponent<Hand>(); }
 
@@ -50,37 +47,64 @@ public class AlyxGrab : MonoBehaviour {
                 if (hit.collider.gameObject.CompareTag("RangeGrabbable")) { //Check if the hit object is RangeGrabbable and highlight it to the user.
                     selectedObject = hit.collider.gameObject;
 
-                    //selectedObject.GetComponent<Rigidbody>().AddForce(calcBallisticVelocityVector(this.transform.position, selectedObject.transform.position, 45) * 3f);
-                    //selectedObject.GetComponent<Rigidbody>().AddForce((this.transform.position - selectedObject.transform.position).normalized * (Vector3.Distance(this.transform.position, selectedObject.transform.position) + 3f));
+                    // think of it as top-down view of vectors: 
+                    //   we don't care about the y-component(height) of the initial and target position.
+                    Vector3 projectileXZPos = new Vector3(selectedObject.transform.position.x, 0.0f, selectedObject.transform.position.z);
+                    Vector3 targetXZPos = new Vector3(transform.position.x, 0.0f, transform.position.z);
 
-                    selectedObject.GetComponent<Rigidbody>().velocity = calcBallisticVelocityVector(selectedObject.transform.position, this.transform.position);
+                    // rotate the object to face the target
+                    selectedObject.transform.LookAt(targetXZPos);
+
+                    // shorthands for the formula
+                    float R = Vector3.Distance(projectileXZPos, targetXZPos);
+                    float G = Physics.gravity.y;
+                    float tanAlpha = Mathf.Tan(70f * Mathf.Deg2Rad);
+                    float H = selectedObject.transform.position.y - transform.position.y;
+
+                    // calculate the local space components of the velocity 
+                    // required to land the projectile on the target object 
+                    float Vz = Mathf.Sqrt(G * R * R / (2.0f * (H - R * tanAlpha)));
+                    float Vy = tanAlpha * Vz;
+
+                    // create the velocity vector in local space and get it in global space
+                    Vector3 localVelocity = new Vector3(0f, Vy, Vz);
+                    Vector3 globalVelocity = selectedObject.transform.TransformDirection(localVelocity);
+
+                    // launch the object by setting its initial velocity and flipping its state
+                    selectedObject.GetComponent<Rigidbody>().velocity = globalVelocity;
                 }
             }
         }
     }
 
+    
+
     //This like actually works ((sometimes)). 
     //Sometimes it fails to calculate the angle at which it should launch it self at, sometimes it just returns NaN for no reason.
     //Most importantly I need to fix the amount of thrust it applies, since it's way too high when close up.
-    private Vector3 calcBallisticVelocityVector(Vector3 source, Vector3 target) { //https://answers.unity.com/questions/1362266/calculate-force-needed-to-reach-certain-point-addf-1.html
-        Vector3 direction = target - source;
-        float h = direction.y;
-        direction.y = 0;
-        float distance = direction.magnitude;
+    //private Vector3 calcBallisticVelocityVector(Vector3 source, Vector3 target, float mass) { //https://answers.unity.com/questions/1362266/calculate-force-needed-to-reach-certain-point-addf-1.html
+    //    //Get direction
+    //    Vector3 direction = target - source;
+    //    //Get height
+    //    float height = direction.y;
 
+    //    //Get total distance in 2D space
+    //    direction.y = 0;
+    //    float distance = direction.magnitude;
 
-        float a = Vector3.Angle(target, source) * Mathf.Deg2Rad;
-        direction.y = distance * Mathf.Tan(a);
-        distance += h / Mathf.Tan(a);
+    //    //Get angle and convert angle from degrees to radians
+    //    float angle = Vector3.Angle(target, source) * Mathf.Deg2Rad; 
 
-        // calculate velocity
-        float velocity = Mathf.Sqrt(distance * Physics.gravity.magnitude / Mathf.Sin(2 * a));
-        return velocity * direction.normalized;
-    }
+    //    //Set Y-direction to distance
+    //    direction.y = distance * Mathf.Tan(angle);
+    //    distance += height / Mathf.Tan(angle);
 
-    private void Update() {
+    //    // calculate velocity
+    //    float velocity = Mathf.Sqrt(distance * Physics.gravity.magnitude / Mathf.Sin(2 * angle));
+    //    return velocity * direction.normalized;
+    //}
 
-    }
+  
 
     //Using FixedUpdate() because apparently you're supposed to do that when raycasting each frame.
     private void FixedUpdate() {
